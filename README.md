@@ -52,3 +52,10 @@
     - 建立public文件夹
     - 判定访问路径中是否以/public/开头
     - 访问资源并响应`fs.readFile('.'+ url, function(err,data){}`
+
+- 处理表单提交get
+    - `<form action="/pinglun" method="get">`转到`/pinglun` > `url.parse()`解析请求路径 > `url.parse().pathname`获取url字段 > 获取`url.parse()`字段中的`query`> `query`即是刚才发出的get请求中的内容/对象 >
+
+- 重定向
+    - 1.状态码设置为302 临时重定向`res.statusCode`
+    - 2.在响应头中通过location告诉客户端往哪儿重定向 `res.setHeader('Location','/')`
