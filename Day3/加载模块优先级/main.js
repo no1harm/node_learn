@@ -1,0 +1,6 @@
+require('./a')
+
+var fn = require('./b')
+
+console.log(fn)
+console.log('end')

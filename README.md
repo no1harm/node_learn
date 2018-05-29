@@ -1,4 +1,4 @@
-# node.js
+# node.js学习路径
 
 # Day1
 
@@ -22,12 +22,22 @@
 
 ## node 核心模块
 
--  引用
+-  fs/文件操作
+-  http/http服务
+-  url/路径操作
+-  path/路径处理
+-  os/操作系统信息  
 
-## node第三方模块引用
+## node模块引用
 
-- 引用
-- 模块作用域（node中没有全局作用域）
+- CommonJS模块规范
+    - 核心模块直接`require`
+    - 第三方模块通过`npm install` 下载
+    - 自己写的模块引入/导出
+        - `require` 引入
+        - `exports` 导出
+            - 如果一个模块需要导出某个成员或多个成员，而非以挂载的方式，则要用`module.exports = {}`
+    - 模块作用域（node中没有全局作用域）
 
 # Day2
 
@@ -46,7 +56,7 @@
 - 使用art-template模板引擎
     - 在项目目录下安装`npm install art-template --save`
     - 在需要使用的文件模块中加载`art-template`
-    - 模板使用流程：创建服务器(http.createServer()) > 拿到模板,读取模板信息(fs.readfile) > 把模板信息转化成字符串(toString()) > 替换模板信息(template.render()) > 响应(response.end()) 
+    - 模板使用流程：创建服务器(`http.createServer()`) > 拿到模板,读取模板信息(`fs.readfile`) > 把模板信息转化成字符串(`toString()`) > 替换模板信息(`template.render()`) > 响应(`response.end()`) 
 
 - 处理静态资源
     - 建立public文件夹
@@ -59,3 +69,41 @@
 - 重定向
     - 1.状态码设置为302 临时重定向`res.statusCode`
     - 2.在响应头中通过location告诉客户端往哪儿重定向 `res.setHeader('Location','/')`
+
+# Day3
+
+## npm
+
+- 包管理工具
+- 常用命令
+    - `npm install --global npm`升级npm
+    - `npm init`生成package.json
+        - `npm init -y`快速生成
+    - `npm install`全部下载
+        - `npm i` 简写
+    - `npm install 包名`下载包        
+    - `npm install --save 包名`下载并保存依赖项到`package.json`
+    - `npm uninstall 包名`删除包，有依赖项会依然保存 
+    - `npm uninstall --save 包名`删除包，会删除依赖项
+    - `npm help`查看帮助
+    - `npm 命令 --help`查看具体命令的使用帮助
+- npm镜像`https://npm.taobao.org/`
+    - 通过`npm install --global cnpm`把淘宝镜像安装到全局
+    - 以后就可以使用`cnpm`命令了
+    - 或者可以通过`npm install -g cnpm --registry=https://registry.npm.taobao.org`来使用淘宝的服务器来下载（不用安装cnpm）
+    -  `npm config list`查看npm配置信息
+
+
+## Package.json 包描述文件
+
+- 建议每一个项目都有一个package.json文件
+- 在项目目录下通过`npm init`命令创建
+- 使用`npm install --save 包名`来把第三方包的描述信息写入`package.json`
+- `npm install`命令可以自动安装全部依赖包
+
+
+## Express
+
+- 第三方Web开发框架
+- 高度封装了http模块
+- 更加专注于业务，而非底层细节
