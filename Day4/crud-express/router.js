@@ -5,6 +5,7 @@
  */
 
 var fs = require('fs')
+var Students = require('./student.js')
 
 // module.exports = function(app){
 //     app.get('/',function(req,res){
@@ -28,15 +29,56 @@ var router = express.Router()
 
 // 2.把路由都挂载到路由容器中
 router.get('/',function(req,res){
-    fs.readFile('./db.json','utf-8',function(err,data){
+    Students.find(function(err,students){
         if (err) {
-            return res.status(500).send('Server error.')
+            return res.status(500),send('server error')
         }
         res.render('index.html',{
-            students:JSON.parse(data).students
-        })
+            students:students
+        })  
     })
 })
+
+/**
+ * 增
+ */
+router.get('/students/new',function(req,res){
+    res.render('new.html')
+})
+
+router.post('/students/new',function(req,res){
+    var student = req.body
+    Students.save(student,function(err){
+        if (err) {
+            return res.status(500),send('server error')            
+        }
+        console.log(student)
+        res.redirect('/')
+    })
+})
+
+/**
+ * 改
+ */
+router.get('/students/edit',function(req,res){
+    
+})
+
+router.post('/students/edit',function(req,res){
+    
+})
+
+/**
+ * 删
+ */
+router.get('/students/delete',function(req,res){
+    
+})
+
+router.post('/students/delete',function(req,res){
+    
+})
+
 
 //3.把router导出
 module.exports = router

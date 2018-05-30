@@ -17,14 +17,13 @@ var app = express()
 
 app.engine('html',require('express-art-template'))  //启用模板引擎
 
-app.use(router)     //把路由容器挂载到app服务中
-
 app.use('/node_modules/',express.static('./node_modules'))  //公开资源
 app.use('/public/',express.static('./public'))
 
 app.use(bodyParser.urlencoded({ extended:false}))   //获取post请求体数据的设置
 app.use(bodyParser.json())
 
+app.use(router)     //把路由容器挂载到app服务中
 
 app.listen(3000,function(){
     console.log('server is running..')
