@@ -104,6 +104,14 @@
 
 ## Express
 
+- 文件操作路径中的/ 和模块标识路径中的/
+    - 文件操作中的相对路径可以省略./
+        - `./data/a.txt`    相对于当前目录下
+        - `data/a.txt`  相对于当前目录
+        - `/data/a.txt` 绝对路径，当前文件模块所处磁盘根目录
+        - `c:/../..`    绝对路径
+    - 在模块加载中，相对路径中的./不能省略
+
 - 优点
     - 第三方Web开发框架
     - 高度封装了http模块
@@ -111,3 +119,34 @@
 
 - 安装
     - `npm install --save express`
+
+- 在express中配置使用art-template
+    - `npm install --save express-art-template`安装
+    - 关键语法
+        - `app.engine('art', require('express-art-template'))`
+        - `res.render('xx.art',{})`
+        - 如果希望修改默认的`views`师徒渲染存储目录，修改：
+            - `app.set('views',目录路径)`
+        - `redirect()`重定向
+
+- 在express中获取get表单数据
+    - `req.query`直接获取get请求体数据
+
+- 在express中获取post表单数据
+    - 没有内置获取post请求的API
+    - `npm install --save body-parser`
+    - 引包
+    - ``` app.use(bodyParser.urlencoded({ extended:false})) app.use(bodyParser.json())```
+    - `req.body`获取post请求体数据
+
+## 修改完代码自动重启
+
+- nodemon 基于node.js开发的第三方命令行工具
+    - `npm install --global nodemon`安装
+    - `nodemon xxx.js` 自动重启
+
+## 基本路由 
+
+- 请求方法
+- 请求路径
+- 请求处理函数
