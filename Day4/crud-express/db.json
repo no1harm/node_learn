@@ -1,0 +1,8 @@
+{
+    "students":[
+        {"id":1,"name":"sammy","gender":0},
+        {"id":2,"name":"sammy","gender":0},
+        {"id":3,"name":"sammy","gender":0},
+        {"id":4,"name":"sammy","gender":0}
+    ]
+}

@@ -123,9 +123,9 @@
 - 在express中配置使用art-template
     - `npm install --save express-art-template`安装
     - 关键语法
-        - `app.engine('art', require('express-art-template'))`
-        - `res.render('xx.art',{})`
-        - 如果希望修改默认的`views`师徒渲染存储目录，修改：
+        - `app.engine('art', require('express-art-template'))`挂载模板引擎
+        - `res.render('xx.art',{})` 渲染模板
+        - 如果希望修改默认的`views`视图渲染存储目录，修改：
             - `app.set('views',目录路径)`
         - `redirect()`重定向
 
@@ -139,6 +139,13 @@
     - ``` app.use(bodyParser.urlencoded({ extended:false})) app.use(bodyParser.json())```
     - `req.body`获取post请求体数据
 
+## 设置数据库
+
+- 项目目录下创建`db.json`文件
+- `fs.readFile`读取json文件
+- `JSON.parse()`把读取出来的文件转成数组
+- 模板渲染
+
 ## 修改完代码自动重启
 
 - nodemon 基于node.js开发的第三方命令行工具
@@ -150,3 +157,12 @@
 - 请求方法
 - 请求路径
 - 请求处理函数
+- 路由模块的提取
+    - 把路由提取出来，放在同目录下的`router.js`统一管理
+    - `router.js`创建路由容器`var router = express.Router()`
+    - 把路由都挂载到路由容器中
+    - `module.exports = router`把router导出
+    - `app.use(router)`在`app.js`把`router.js`路由容器挂载进来
+    - 
+
+
