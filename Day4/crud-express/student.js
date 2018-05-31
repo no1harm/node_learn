@@ -22,6 +22,7 @@ exports.updateById = function(student,callback){
 		// 需要接受一个函数作为参数
 		// 当某个遍历项符合item.id === student.id条件的时候，find会终止遍历，同时返回遍历项
 		student.id = parseInt(student.id)
+		
 		var stu = students.find(function(item){
 			return item.id === student.id
 		})
@@ -90,7 +91,9 @@ exports.save = function (student, callback) {
 		}
 		//callback中的参数：第一个是err,第二个是结果
 		var students = JSON.parse(data).students
+		
 		student.id = students[students.length - 1].id + 1
+		
 		students.push(student)
 		var fileData = JSON.stringify({
 			students: students

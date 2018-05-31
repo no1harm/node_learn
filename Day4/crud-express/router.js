@@ -50,8 +50,8 @@ router.get('/students/new',function(req,res){
 })
 
 router.post('/students/new',function(req,res){
-    var student = req.body
-    Students.save(student,function(err){
+    // var student = req.body
+    Students.save(req.body,function(err){
         if (err) {
             return res.status(500),send('server error')            
         }
