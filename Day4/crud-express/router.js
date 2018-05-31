@@ -28,7 +28,10 @@ var express = require('express')
 var router = express.Router()
 
 // 2.把路由都挂载到路由容器中
-router.get('/',function(req,res){
+/**
+ * 查
+ */
+router.get('/students',function(req,res){
     Students.find(function(err,students){
         if (err) {
             return res.status(500),send('server error')
@@ -52,8 +55,7 @@ router.post('/students/new',function(req,res){
         if (err) {
             return res.status(500),send('server error')            
         }
-        console.log(student)
-        res.redirect('/')
+        res.redirect('/students')
     })
 })
 
@@ -61,18 +63,43 @@ router.post('/students/new',function(req,res){
  * 改
  */
 router.get('/students/edit',function(req,res){
-    
+    // 1.在客户端的列表页中处理链接问题（需要有id参数）
+    // 2.获取要编辑的学生id
+    // 3.编辑渲染页面
+            // 根据id学生页面查出来
+            // 使用模板引擎渲染页面
+    // res.render('edit.html',{
+
+    // })
+    Students.findById(parseInt(req.query.id),function(err,student){
+        if (err) {
+            return res.status(500),send('server error')            
+        }
+        res.render('edit.html',{
+            student:student
+        }) 
+    })
 })
 
 router.post('/students/edit',function(req,res){
-    
+    Students.updateById(req.body,function(err){
+        if (err){
+            return res.status(500),send('server error')                        
+        }
+        res.redirect('/students')
+    })
 })
 
 /**
  * 删
  */
 router.get('/students/delete',function(req,res){
-    
+    Students.deleteById(req.query.id,function(err){
+        if (err) {
+            return res.status(500),send('server error')                                    
+        }
+        res.redirect('/students')        
+    })
 })
 
 router.post('/students/delete',function(req,res){

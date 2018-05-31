@@ -169,3 +169,10 @@
 ## 回调函数
 
 - 感觉理解起来有点困难
+- ```类A调用类B的方法b（传入相关信息），类B的方法在执行完后，会将结果写到（再回调）类A的方法a，完成动作```
+    - 具体到这个案例就是
+    - `router.js`中的`find()`传入参数调用`student.js`中的`find()`，`student.js`中的`find()`执行完后，再将结果回调到`router.js`中的`find()`的方法中
+        - `student.js`中有一个`find()`函数，函数中中有一个参数`callback`(即回调函数)
+        - `find()`主要是读取某一个文件中数据然后将结果用`callback`返回
+        - 在`router.js`中可以调用`student.js`中的`find()`函数，直接使用`find()`函数中通过`callback`返回的数据
+- 完成增删查改
