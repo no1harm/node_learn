@@ -70,7 +70,7 @@
     - 1.状态码设置为302 临时重定向`res.statusCode`
     - 2.在响应头中通过location告诉客户端往哪儿重定向 `res.setHeader('Location','/')`
 
-# Day3
+# Day3 + Day4
 
 ## npm
 
@@ -94,13 +94,16 @@
     -  `npm config list`查看npm配置信息
 
 
-## Package.json 包描述文件
+## package.json / package-lock.json
 
 - 建议每一个项目都有一个package.json文件
 - 在项目目录下通过`npm init`命令创建
 - 使用`npm install --save 包名`来把第三方包的描述信息写入`package.json`
+    - npm5以后的版本安装包不需要加`--save`，会自动保存依赖信息
 - `npm install`命令可以自动安装全部依赖包
-
+- 不升级node的情况下，单独升级npm`npm i --global npm`
+- `package-lock.json`会保存`node_modules`中所有包的信息
+ - `lock`的意思是锁定版本
 
 ## Express
 
@@ -169,10 +172,15 @@
 ## 回调函数
 
 - 感觉理解起来有点困难
+- 异步API都伴随有回调函数
 - ```类A调用类B的方法b（传入相关信息），类B的方法在执行完后，会将结果写到（再回调）类A的方法a，完成动作```
     - 具体到这个案例就是
     - `router.js`中的`find()`传入参数调用`student.js`中的`find()`，`student.js`中的`find()`执行完后，再将结果回调到`router.js`中的`find()`的方法中
-        - `student.js`中有一个`find()`函数，函数中中有一个参数`callback`(即回调函数)
-        - `find()`主要是读取某一个文件中数据然后将结果用`callback`返回
+        - `student.js`中有一个`find()`函数，函数中中有一个参数`callback`(形参/即回调函数)
+        - `find()`主要是读取某一个文件中数据然后将异步结果用`callback`返回
         - 在`router.js`中可以调用`student.js`中的`find()`函数，直接使用`find()`函数中通过`callback`返回的数据
 - 完成增删查改
+
+# Day5
+
+
