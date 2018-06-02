@@ -183,4 +183,65 @@
 
 # Day5
 
+## MongoDB
 
+- mongodb
+    - 概念
+        - 关系型数据库 / 非关系型数据库 区别
+            + 所有的关系型数据库都需要通过`sql`语言来操作
+            + 所有的关系型数据库在操作之前都需要设计表结构
+            + 非关系型数据库非常灵活
+        - MongoDB不需要设计表结构
+            +没有结构性
+
+    - 安装
+        + 官方网站
+        + 加入环境变量
+        + 命令行输入`mongod --version`确认是否安装
+
+    - 启动
+        + MongoDB默认使用执行`mongod`命令所处盘符根目录下的 `/data/db` 作为自己的数据存储目录
+        + 所以要先在所需盘符根目录下新建`/data/db`
+        + 开启：命令行输入`mongod`
+        + 关闭：`ctrl+c` / 关闭服务控制台
+
+    - 使用数据库
+        + 另开命令行
+        + 连接数据库
+            - 输入`mongo` 
+                + 默认连接本机的MongoDB服务
+        + 使用数据库
+            - `show dbs`
+                + 查看显示所有数据库
+            - `db`
+                + 查看当前操作数据库
+            - `use 数据库名称`
+                + 切换到指定数据库/没有则新建
+
+    - 退出
+        + 输入`exit`
+
+- 在node中使用MongoDB
+    + 使用官方的`mongodb`包操作
+    + 使用第三方`mongoose`来操作
+        - `http://mongoosejs.com/·`
+        - `mongoose`基于MongoDB官方的`mongodb`包再一次进行封装
+        - 安装 `npm i --save mongoose`
+        - 1.连接数据库
+            + `mongoose.connect('mongodb://localhost/xxxx')`
+        - 2.设置文档结构（表结构）
+            + `var blogSchema = new Schema({})`
+        - 3.将文档结构发布为模型
+            + `var Blog = mongoose.model('Blog',blogSchema)`
+        - 存储数据
+            + `save()`
+        - 查询数据
+            + `find()`按条件查询所有
+            + `findOne()`按条件查询第一条
+        - 删除数据
+            + `remove()`按条件删除
+            + `findByIdAndRemove('',{},function(err,ret){})`根据Id删除           
+            + `findOneAndRemove({},function(err,ret){})`根据查询条件删除
+        - 更新数据
+            + `findByIdAndUpdate('',{},function(err,ret){})`根据Id更新
+            + `findOneAndUpdate({},{},function(err,ret){})`根据查询条件更新
