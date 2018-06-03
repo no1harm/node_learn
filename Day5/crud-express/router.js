@@ -31,15 +31,27 @@ var router = express.Router()
 /**
  * 查
  */
+// router.get('/students',function(req,res){
+//     Students.find(function(err,students){
+//         if (err) {
+//             return res.status(500),send('server error')
+//         }
+//         res.render('index.html',{
+//             students:students
+//         })  
+//     })
+// })
+
+//使用Promis来代替以上回调函数
 router.get('/students',function(req,res){
-    Students.find(function(err,students){
-        if (err) {
-            return res.status(500),send('server error')
-        }
-        res.render('index.html',{
-            students:students
-        })  
-    })
+    Students.find()
+        .then(function(data){
+            res.render('index.html',{
+                students:data
+            })
+        },function(err){
+            return res.status(500),send('server error')            
+        })
 })
 
 /**

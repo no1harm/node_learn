@@ -245,3 +245,46 @@
         - 更新数据
             + `findByIdAndUpdate('',{},function(err,ret){})`根据Id更新
             + `findOneAndUpdate({},{},function(err,ret){})`根据查询条件更新
+
+## Promise
+
+- `Ecmascript 6` 中的API
+- 一个构造函数
+- `Promise`本身不是异步，但内部往往封装一个异步任务
+- 使用
+    + 创建一个`Promise`容器
+        - `new  Promise(function(resolve,reject){})`
+    + 实例化一个`Promise`容器
+        - `var promise = new  Promise(function(resolve,reject){})`
+    + 通过`then()`方法来获取容器状态/结果
+        - `promise.then(function(){},function(){})`
+            + 第一个函数对应`resolve`
+            + 第二个函数对应`reject`
+- 关于嵌套
+    + `then()`可以接受并返回另一个`Promise`实例的结果`(resolve/reject)`在接下来的`then()`中
+    + ```javascript   
+        pro
+            .then(function(data){
+                console.log(data)
+                //这里的return返回的相当于是又一个resolve
+                //下面的then获取的就是这个return
+                // return 123
+                return pro2
+                //这里的return的是pro2的resolve
+            },function(err){
+                console.log(err)
+            })
+            .then(function(data){
+                console.log(data)
+                return pro3
+            },function(err){
+                console.log(err)
+                console.log('pro2 is not find')
+            })
+            .then(function(data){
+                console.log(data)
+            },function(err){
+                console.log(err)
+                console.log('pro3 is not find')
+            })
+        ```
