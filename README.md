@@ -153,7 +153,7 @@
 ## 修改完代码自动重启
 
 - nodemon 基于node.js开发的第三方命令行工具
-    - `npm install --global nodemon`安装
+    - `npm install --global nodemon`全局安装
     - `nodemon xxx.js` 自动重启
 
 ## 基本路由 
@@ -288,3 +288,44 @@
                 console.log('pro3 is not find')
             })
         ```
+
+# Day6
+
+## Path路径模块理解
+
+- `http://nodejs.cn/api/path.html`
+- `http://javascript.ruanyifeng.com/nodejs/path.html`
+    + `path.join()`
+        - 方法用于连接路径。该方法的主要用途在于，会正确使用当前系统的路径分隔符，Unix系统是”/“，Windows系统是”\“
+    + `path.resolve()`
+        - 用于将相对路径转为绝对路径。可以接受多个参数，依次表示所要进入的路径，直到将最后一个参数转为绝对路径。如果根据参数无法得到绝对路径，就以当前所在路径作为基准。除了根目录，该方法的返回值都不带尾部的斜杠。
+    + `path.relative()`
+        - 方法接受两个参数，这两个参数都应该是绝对路径。该方法返回第二个路径相对于第一个路径的那个相对路径。
+    + `path.parse()`
+        - 可以返回路径各部分的信息
+            + ```javascript
+                var myFilePath = '/someDir/someFile.json';
+                path.parse(myFilePath).base
+                // "someFile.json"
+                path.parse(myFilePath).name
+                // "someFile"
+                path.parse(myFilePath).ext
+                // ".json"
+            ```
+- 在文件操作中，使用相对路径是不可靠的，因为在node中文件操作的路径被设计为相对于执行node命令所处的路径
+    - `__dirname`和`__filename`是不受执行node命令所属路径影响的
+    - `__dirname`
+        + 可用来获取当前文件模块所属目录的绝对路径
+    - `__filename`
+        + 可用来获取当前文件的绝对路径
+    
+## 使用模板引擎2
+
+- `http://aui.github.io/art-template/zh-cn/docs/syntax.html#模板继承`
+    - 子模板
+        + 在html中嵌入所需要的部分`{{ include './xxx.html'}}`
+
+    - 模板继承
+        + 主模板A.html预留位置`{{ block 'a'}}aaa{{ /block }}`
+        + 副模板B.html继承 `{{ extend './A.html'}}`
+            - 修改默认 `{{ block 'a'}}bbb{{ /block }}`
