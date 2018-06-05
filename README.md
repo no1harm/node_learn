@@ -329,3 +329,5 @@
         + 主模板A.html预留位置`{{ block 'a'}}aaa{{ /block }}`
         + 副模板B.html继承 `{{ extend './A.html'}}`
             - 修改默认 `{{ block 'a'}}bbb{{ /block }}`
+
+## 把回调函数改写为Promise,加强记忆
