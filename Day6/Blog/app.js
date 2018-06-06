@@ -17,6 +17,7 @@ app.set('views',path.join(__dirname,'./views'))
 app.use(bodyParser.urlencoded({ extended:false})) 
 app.use(bodyParser.json())
 
+// 配置session，一定要在配置router之前
 app.use(session({
     secret:'keyboard cat',
     resave:false,

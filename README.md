@@ -331,3 +331,28 @@
             - 修改默认 `{{ block 'a'}}bbb{{ /block }}`
 
 ## 把回调函数改写为Promise,加强记忆
+
+## 通过session保存登录状态
+
+- `session` 和 `cookie` 区别
+    + Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中
+    + Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式
+
+- 使用
+    + 引包
+        - `var session = require('express-session')`
+    + 配置session
+        - ```javascript
+            app.use(session({
+            secret:'keyboard cat',
+            resave:false,
+            saveUninitialized:true,
+            }))
+            ``` 
+    + 设置session
+        - `req.session.xx = xx`
+    + 获取session
+        - `req.session.xx`
+    + 清除session
+        - `req.session.xx = null`
+    + 持久化session存储

@@ -4,13 +4,42 @@ var router = express.Router()
 var md5 = require('blueimp-md5')
 
 router.get('/',function(req,res){
-        res.render('index.html',{})
+    res.render('index.html',{
+        user:req.session.user
+    })
 })
 
 router.get('/login',function(req,res){
     res.render('login.html',{})
 })
 router.post('/login',function(req,res){
+    // 1.获取表单数据
+    // 2.查询数据库
+    // 3.发送响应数据
+    var body = req.body
+    User.findOne({
+        email:body.email,
+        password:md5(md5(body.password))
+    },function(err,user){
+        if (err){
+            return res.status(500).json({
+                err_code:500,
+                message:'服务端错误'
+            })
+        }
+        if (!user){
+            return res.status(200).json({
+                err_code:1,
+                message:'邮箱或者昵称无效'
+            })
+        }
+        //用户存在，登录成功，记录session
+        req.session.user = user
+        res.status(200).json({
+            err_code:0,
+            message:'ok'
+        })
+    })
 })
 
 router.get('/register',function(req,res){
@@ -49,13 +78,15 @@ router.post('/register',function(req,res){
         //对密码进行MD5重复加密
         body.password = md5(md5(body.password))
         
-        new User(body).save(function(err,data){
+        new User(body).save(function(err,user){
             if (err) {
                 return res.status(500).json({
                     err_code:500,                    
                     message:'服务端错误',
                 })
             }
+            // 用户注册成功，使用session记录用户的登录状态
+            req.session.user = user
             res.status(200).json({
                 err_code:0,
                 message:'ok'
@@ -92,7 +123,7 @@ router.post('/register',function(req,res){
     //         console.log(err)
     //     })
     //     .then(function(data){
-    //         res.session.isLogin = true
+    //         req.session.user = user
     //         return res.status(200).json({
     //             err_code:0,
     //             message:"注册成功",
@@ -103,5 +134,10 @@ router.post('/register',function(req,res){
     //         console.log(err)            
     //     })   
 })
-
+router.get('/logout',function(req,res){
+    //清楚登录状态
+    //重定向
+    req.session.user = null
+    res.redirect('/')
+})
 module.exports = router
